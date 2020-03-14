@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.ProxyIpMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="ProxyIpEntity" id="proxyIpMap">
+        <result property="id" column="id"/>
+        <result property="ip" column="ip"/>
+        <result property="port" column="port"/>
+        <result property="website" column="website"/>
+        <result property="creatdTime" column="creatd_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="testCheck" column="test_check"/>
+        <result property="testSelect" column="test_select"/>
+        <result property="status" column="status"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_ProxyIpColumns_List" > 
+  	  id ,        
+  ip ,        
+  port ,        
+  website ,        
+   creatd_time  ,        
+   updated_time  ,        
+   test_check  ,        
+   test_select  ,        
+  status         
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_ProxyIpColumns_List" >
+       #{id},   #{ip},   #{port},   #{website},   #{creatdTime},   #{updatedTime},   #{testCheck},   #{testSelect},   #{status}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_ProxyIpColumns_List" >
+    <set>
+    <if test="t.ip != null">ip = #{t.ip}, </if>
+    <if test="t.port != null">port = #{t.port}, </if>
+    <if test="t.website != null">website = #{t.website}, </if>
+    <if test="t.creatdTime != null">creatd_time = #{t.creatdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}, </if>
+    <if test="t.testCheck != null">test_check = #{t.testCheck}, </if>
+    <if test="t.testSelect != null">test_select = #{t.testSelect}, </if>
+    <if test="t.status != null">status = #{t.status}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_ProxyIpPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.ip != null">and ip = #{t.ip}</if>
+    <if test="t.port != null">and port = #{t.port}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.creatdTime != null">and creatd_time = #{t.creatdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.testCheck != null">and test_check = #{t.testCheck}</if>
+    <if test="t.testSelect != null">and test_select = #{t.testSelect}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_ProxyIpPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.ip != null">and ip = #{t.ip}</if>
+    <if test="t.port != null">and port = #{t.port}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.creatdTime != null">and creatd_time = #{t.creatdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.testCheck != null">and test_check = #{t.testCheck}</if>
+    <if test="t.testSelect != null">and test_select = #{t.testSelect}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into proxy_ip values (<include refid="ins_ProxyIpColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update proxy_ip <include refid="upd_ProxyIpColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from proxy_ip <include refid="del_ProxyIpPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from proxy_ip where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="proxyIpMap">
+		select  <include refid="sel_ProxyIpColumns_List" />  from proxy_ip where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="proxyIpMap">
+		select  <include refid="sel_ProxyIpColumns_List" />  from proxy_ip
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="proxyIpMap">
+		select  <include refid="sel_ProxyIpColumns_List" />  from proxy_ip <include refid="sel_ProxyIpPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="proxyIpMap">
+		select  <include refid="sel_ProxyIpColumns_List" />  from proxy_ip <include refid="sel_ProxyIpPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="proxyIpMap">
+        select  <include refid="sel_ProxyIpColumns_List" />  from proxy_ip <include refid="sel_ProxyIpPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from proxy_ip <include refid="sel_ProxyIpPramas_List" />
+	</select>
+	
+
+
+</mapper>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="en">
+
+<head>
+    <!--    <base href="http://localhost:8080">-->
+    <base th:href="${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}"/>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dashboard V.1 | Nalika - Material Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="static/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="static/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <link href="static/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="static/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <link href="static/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <link href="static/vendors/normalize-css/normalize.css" rel="stylesheet">
+    <link href="static/vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="static/vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <!-- Bootstrap Colorpicker -->
+    <link href="static/vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="static/vendors/cropper/dist/cropper.min.css" rel="stylesheet">
+    <link href="static/build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/bootstrap-table.css">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+    <!-- Custom Theme Style -->
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+        <!-- left navigation -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><span>爬虫</span></a>
+                </div>
+                <div class="clearfix"></div>
+                <!-- menu profile quick info -->
+                <div class="profile">
+                    <div class="profile_pic">
+                        <img src="static/images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <br />
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="static/images/img.jpg" alt="">John Doe
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;">Help</a></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="static/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="static/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="static/images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="modal fade" id="alert-dialog" tabindex="-1" role="alert-dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="alert-dialog-title">提示</h4>
+                    </div>
+                    <div class="modal-body" id="alert-dialog-content">操作成功</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="alert-dialog-confirm">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="dialog-title">提示</h4>
+                    </div>
+                    <div class="modal-body" id="dialog-content">是否要进行操作?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="dialog-close">关闭</button>
+                        <button type="button" class="btn btn-primary" id="dialog-confirm">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="clearfix"></div>
+            <div class="row" id="rowContent"></div>
+        </div>
+
+
+        <footer>
+            <div class="pull-right">
+                版权归北大青鸟所有 <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+    </div>
+
+
+<!-- 模态框（Modal） -->
+<!--JS-->
+<script src="static/vendors/select2/vendor/jquery-2.1.0.js"></script>
+<!-- Bootstrap -->
+<script src="static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="static/vendors/nprogress/nprogress.js"></script>
+<!-- iCheck -->
+<script src="static/vendors/iCheck/icheck.min.js"></script>
+<!-- iCheck -->
+<!-- Custom Theme Scripts -->
+<script src="static/js/common/bootstrap-table.min.js"></script>
+<script src="static/js/common/bootstrap-table-zh-CN.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/js/moment/moment.min.js"></script>
+<script src="static/js/datepicker/daterangepicker.js"></script>
+<script src="static/vendors/select2/dist/js/select2.full.min.js"></script>
+<script src="static/js/common/echarts.common.min.js"></script>
+<script>
+
+    window.alert=function (json) {
+        var title=(json.title==null)?"温馨提示":json.title;
+        layer.alert(json.content,{icon:1,title:title},function (index) {
+            layer.close(index);
+            if(json.ok!=null){
+                json.ok();
+            }
+        });
+    };
+    window.confirm=function (json) {
+        layer.confirm(json.content, {
+            btn: ['确认','取消'] //按钮
+        }, function(index){
+            layer.close(index);
+            if(json.ok!=null){
+                json.ok();
+            }
+        }, function(index){
+            layer.close(index);
+            if(json.cancel!=null){
+                json.cancel();
+            }
+        });
+    };
+    window.dialog=function(json){
+        layer.open({
+            type: 1,
+            area: [json.width, json.height],
+            shadeClose: true,
+            content: '<div style="padding:20px;">'+json.content+'</div>'
+        });
+    };
+    window.ajaxDialog=function (json) {
+        $.ajax({
+            type: 'POST',
+            url: json.url,
+            async:true,
+            success: function (result) {
+                layer.open({
+                    title:json.title,
+                    type: 1,
+                    area: [json.width, json.height],
+                    shadeClose: true,
+                    content: result
+                });
+            }
+        });
+    };
+    window.sidebar=function () {
+        var $div=$("<div class=\"menu_section\"></div>");
+        $div.append("<h3>General</h3>");
+        var $ul=$("<ul class=\"nav side-menu\" id='menu'></ul>");
+        $.ajax({
+            type: 'POST',
+            url: '/module/loadMenu',
+            async:false,
+            success: function (result) {
+                for (var i=0;i<result.length;i++){
+                    var module=result[i];
+                    var $li=$("<li></li>");
+                    var $a=$("<a><i class=\"fa fa-home\"></i>"+module.name+"<span class=\"fa fa-chevron-down\"></span></a>");
+                    $li.append($a);
+                    var $$ul=$("<ul class=\"nav child_menu\" ></ul>");
+                    for(var j=0;j<module.children.length;j++){
+                        var $$li=$("<li><a href=\"javascript:void(0);\" onclick=\"loadContent('"+module.children[j].url+"');\">"+module.children[j].name+"</a></li>");
+                        $$ul.append($$li);
+                    }
+                    $li.append($$ul);
+                    $ul.append($li);
+                }
+                $div.append($ul);
+            }
+        });
+        $("#sidebar-menu").html($div);
+    };
+    //加载菜单
+    window.sidebar();
+
+    window.loadContent=function(url,data) {
+        alert(111);
+        $("#menu").children("li").children("ul").children(".active").removeClass("active");
+        $("#rowContent").load(url,data);
+    };
+    function initOptions(title,keyArray_,valueArray_) {
+        return {
+            title: {
+                text: '',
+                subtext:"注:统计图最大值均为100"
+            },
+            color: ['#FFA07A'],
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            toolbox: {
+                // y: 'bottom',
+                feature: {
+                    saveAsImage: {
+                        pixelRatio: 1
+                    }
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                data: keyArray_,
+                axisLabel:{
+                    interval: 0,
+                    rotate:40
+                }
+            },
+            yAxis: {
+                min:function () {
+                    return 0;
+                },
+                axisLabel:{
+                    formatter: '{value} %'
+                }
+            },
+            series: [{
+                type: 'bar',
+                data: valueArray_,
+                barWidth: '20%',
+                radius : '10%',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'outside',
+                        color:'black',
+                        formatter: '{c} %'
+                    }
+                }
+            }],
+        };
+    };
+    //初始化表格
+    function initChart(id,title,keyArray_,valueArray_){
+        var myChart = echarts.init(document.getElementById(id));
+        // 指定图表的配置项和数据
+        var option =initOptions(title,keyArray_,valueArray_);
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        window.onresize = myChart.resize;
+    }
+    //判断中文
+    function checkChinese(val){
+        var reg = new RegExp("^[a-zA-Z]+$","g");
+        return reg.test(val);
+    }
+</script>
+<script src="static/build/js/custom.min.js"></script>
+
+</body>
+
+</html>

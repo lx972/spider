@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+
+spring:
+  #  名字
+  application:
+    name: spider
+  mvc:
+#    静态资源访问路径
+    static-path-pattern: /static/**
+
+  thymeleaf:
+#    使用模板路径
+    check-template-location: true
+#    编码格式
+    encoding: utf-8
+#    是否使用HTML5标签
+    mode: HTML5
+#    是否使用缓存
+    cache: false
+#    前缀
+    prefix: classpath:/templates/
+#    后缀
+    suffix: .html
+
+  datasource:
+    url: jdbc:mysql://192.168.43.67:3306/spider?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 1234
+
+
+
+#分页插件
+pagehelper:
+  reasonable: true
+  params: count=countSql
+#  支持通过 Mapper 接口参数来传递分页参数
+  support-methods-arguments: true
+  helper-dialect: mysql
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    aggressive-lazy-loading: false
+    cache-enabled: true
+    lazy-loading-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: cn.kgc.spider.model

@@ -1,0 +1,307 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <!--    <base href="http://localhost:8080">-->
+    <base th:href="${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>childList</title>
+
+</head>
+<body>
+
+<div class="">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>内容页配置</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <form class="form-horizontal form-label-left input_mask" role="form">
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_name">节点名称</label>
+                        <input type="text" class="form-control" id="search_child_name" name="search_child_name" placeholder="请输入节点名称">
+                        <input type="hidden" id="search_child_ruleId" name="search_child_ruleId" required="required" th:value="${#httpServletRequest.getAttribute('ruleId')}" class="form-control col-md-7 col-xs-12">
+                        <input type="hidden" id="search_child_parent" name="search_child_parent" required="required" th:value="${#httpServletRequest.getAttribute('parent')}"  class="form-control col-md-7 col-xs-12">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_type">节点类型</label>
+                        <select name="search_child_type" id="search_child_type" class="select2_single form-control">
+                            <option value="-1">请选择</option>
+                            <option value="1">jsoup选择</option>
+                            <option value="2">字符串截取</option>
+                            <option value="3">正则表达式</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_level">节点级别</label>
+                        <input type="text" class="form-control" id="search_child_level" name="search_child_level" placeholder="请输入节点级别">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_hasNext">是否有子节点</label>
+                        <select name="search_child_hasNext" id="search_child_hasNext" class="select2_single form-control">
+                            <option value="-1">请选择</option>
+                            <option value="1">有</option>
+                            <option value="0">无</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_position">元素位置</label>
+                        <select name="search_child_position" id="search_child_position" class="select2_single form-control">
+                            <option value="-1">请选择</option>
+                            <option value="0">全部元素</option>
+                            <option value="1">首元素</option>
+                            <option value="2">末元素</option>
+                            <option value="3">指定位置元素</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                        <label for="search_child_isHref">是否是超链接</label>
+                        <select name="search_child_isHref" id="search_child_isHref" class="select2_single form-control">
+                            <option value="-1">请选择</option>
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="form-inline pull-left">
+                <div class="form-group" style="margin-left: 5px;">
+                    <button type="button" class="btn btn-primary" id="child_search">搜索</button>
+                    <button type="button" class="btn btn-info" id="child_add">新增内容配置</button>
+                    <button type="button" class="btn btn-danger" id="child_remove">删除</button>
+                </div>
+            </div>
+            <table id="child_table"></table>
+        </div>
+    </div>
+</div>
+<script>
+    var table=$('#child_table').bootstrapTable({
+        url: '/crawlernode/listByPramas',
+        sidePagination:"server",
+        pageList: [10, 25, 50, 100],
+        pageNumber: 1, //初始化加载第一页，默认第一页
+        pagination:true,//是否分页
+        queryParamsType:'limit',//查询参数组织方式
+        pageSize:10,//单页记录数
+        pageList:[5,10,20,30],//分页步进值
+        toolbarAlign:'right',//工具栏对齐方式
+        buttonsAlign:'right',//按钮对齐方式
+        showColumns:true,
+        showRefresh:true,
+        searchAlign:'right',
+        checkboxHeader:true,
+        columns: [{
+            checkbox:true,
+            clickToSelect:true,
+        },
+            {
+                field: 'name',
+                title: '节点名称'
+            },
+            {
+                field: 'type',
+                title: '节点类型',
+                formatter:function (value,row,index) {
+                    if(value=='1'){
+                        return 'jsoup选择';
+                    }
+                    if(value=='2'){
+                        return '字符串截取';
+                    }
+                    if(value=='3'){
+                        return '正则表达式';
+                    }
+                }
+            },
+            {
+                field: 'level',
+                title: '节点级别'
+            },
+            {
+                field: 'hasNext',
+                title: '是否有子节点',
+                formatter:function (value,row,index) {
+                    if(value=='1'){
+                        return '有';
+                    }
+                    if(value=='0'){
+                        return '无';
+                    }
+                }
+            },
+            {
+                field: 'position',
+                title: '元素位置',
+                formatter:function (value,row,index) {
+                    if(value=='0'){
+                        return '全部元素';
+                    }
+                    if(value=='1'){
+                        return '首元素';
+                    }
+                    if(value=='2'){
+                        return '末元素';
+                    }
+                    if(value=='3'){
+                        return '指定位置元素';
+                    }
+                }
+            },
+            {
+                field: 'isHref',
+                title: '是否是超链接',
+                formatter:function (value,row,index) {
+                    if(value=='0'){
+                        return '否';
+                    }
+                    if(value=='1'){
+                        return '是';
+                    }
+                }
+            },
+            {
+                title: '操作',
+                width:"200px",
+                formatter:function (value,row,index) {
+                    var value="";
+                    var parent="${param.parent}";
+                    var edit="<a href='#' class='btn btn-info btn-xs' onclick=\"editCrawlerNode('"+row.id+"')\"><i class='fa fa-pencil'></i> 编辑 </a>";
+                    var del="<a href='#' class='btn btn-danger btn-xs' onclick=\"removeCrawlerNode('"+row.id+"')\"><i class='fa fa-trash-o'></i> 删除 </a>";
+                    value=edit+del;
+                    return value;
+                }
+            }],
+        queryParams: function queryParams(params) {  //设置查询参数
+            var ruleId=$("#search_child_ruleId").val();
+            var parent=$("#search_child_parent").val();
+            var temp = {//这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                page:(params.offset/params.limit)+1,
+                sortOrder: params.order,
+                name:$("#search_child_name").val(),
+                type:$("#search_child_type").val(),
+                resultType:$("#search_child_resultType").val(),
+                isHref:$("#search_child_isHref").val(),
+                level:1,
+                ruleId:ruleId,
+                parent:parent
+            };
+            return temp;
+        },
+        responseHandler:function (res) {
+            return {"rows":res.rows,"total":res.total};
+        },
+    });
+    //搜索
+    $("#child_search").click(function () {
+        $('#child_table').bootstrapTable('refresh', null);
+    });
+    //新增列表配置
+    $("#child_add").click(function () {
+        var ruleId=$("#search_child_ruleId").val();
+        var parent=$("#search_child_parent").val();
+        window.ajaxDialog({
+            title:"添加内容页配置",
+            width:"600px",
+            height:"500px",
+            url:"/model/toAddCrawlerNode?level=1&parent="+parent+"&ruleId="+ruleId
+        });
+    });
+    //批量删除
+    $("#child_remove").click(function () {
+        var ids="";
+        var selectItems=$('#child_table').bootstrapTable('getSelections', null);
+        for (var i=0;i<selectItems.length;i++){
+            ids=ids+","+selectItems[i].id;
+        }
+        if(ids==''){
+            alert({"title":"提示","content":"请选择要删除的数据"});
+        }else{
+            confirm({
+                title:"批量删除确认",
+                content:"请确认是否要执行批量删除操作？",
+                ok:function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/crawlernode/deletes',
+                        data: {ids:ids},
+                        success: function (result) {
+                            if(result!="error"){
+                                $('#child_table').bootstrapTable('refresh', null);
+                            }else{
+                                alert({
+                                    title:"操作提示",
+                                    content:"批量删除失败"
+                                })
+                            }
+                        }
+                    });
+                },
+            });
+        }
+    });
+    //查看关键词
+    function viewCrawlerNode(content) {
+        dialog({
+            width:"606px",
+            height:"200px",
+            content:content
+        });
+    }
+    //编辑关键词
+    function editCrawlerNode(id) {
+        window.ajaxDialog({
+            title:"修改内容页配置",
+            width:"600px",
+            height:"500px",
+            url:"/model/toUpdateCrawlerNode?id="+id
+        });
+    }
+    //删除关键词
+    function removeCrawlerNode(id) {
+        confirm({
+            title:"删除关键词提示",
+            content:"请确认是否删除信息?",
+            ok:function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/crawlernode/delete',
+                    data: {id:id},
+                    success: function (result) {
+                        if(result!="error"){
+                            $('#child_table').bootstrapTable('refresh', null);
+
+                        }else{
+                            alert({"title":"删除提示","content":"删除失败"});
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
+ 

@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <!--    <base href="http://localhost:8080">-->
+    <base th:href="${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>爬虫规则管理</title>
+
+</head>
+<body>
+    <div class="">
+    <div class="x_panel">
+        <ul id="myTab" class="nav nav-tabs  disabled">
+            <li class="active">
+                <a href="#rule" data-toggle="tab">
+                    爬虫规则管理
+                </a>
+            </li>
+            <li><a href="#node1" data-toggle="pill" >列表页规则配置</a></li>
+            <li><a href="#node2" data-toggle="pill" >内容页规则配置</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+
+            <div class="tab-pane fade in active" id="rule"></div>
+
+            <div class="tab-pane fade " id="node1"></div>
+
+            <div class="tab-pane fade" id="node2"></div>
+        </div>
+    </div>
+</div>
+<script>
+    //加载tab的ifream
+    function tabLoadContent(divId,url) {
+        $.ajax({
+            type: 'GET',
+            url: url,
+            async: false,
+            success: function (result) {
+                $("#"+divId).html(result);
+            }
+        });
+    }
+    //弹出层tab
+    tabLoadContent("rule","/model/toCrawlerRulesList")
+</script>
+
+</body>
+</html>
+
+ 

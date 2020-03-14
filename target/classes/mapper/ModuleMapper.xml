@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.ModuleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="ModuleEntity" id="moduleMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="parent" column="parent"/>
+        <result property="creatdTime" column="creatd_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_ModuleColumns_List" > 
+  	  id ,        
+  name ,        
+  url ,        
+  parent ,        
+   creatd_time  ,        
+   updated_time  ,        
+  status         
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_ModuleColumns_List" >
+       #{id},   #{name},   #{url},   #{parent},   #{creatdTime},   #{updatedTime},   #{status}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_ModuleColumns_List" >
+    <set>
+    <if test="t.name != null">name = #{t.name}, </if>
+    <if test="t.url != null">url = #{t.url}, </if>
+    <if test="t.parent != null">parent = #{t.parent}, </if>
+    <if test="t.creatdTime != null">creatd_time = #{t.creatdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}, </if>
+    <if test="t.status != null">status = #{t.status}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_ModulePramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.url != null">and url = #{t.url}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.creatdTime != null">and creatd_time = #{t.creatdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_ModulePramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.url != null">and url = #{t.url}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.creatdTime != null">and creatd_time = #{t.creatdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into module values (<include refid="ins_ModuleColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update module <include refid="upd_ModuleColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from module <include refid="del_ModulePramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from module where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="moduleMap">
+		select  <include refid="sel_ModuleColumns_List" />  from module where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="moduleMap">
+		select  <include refid="sel_ModuleColumns_List" />  from module
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="moduleMap">
+		select  <include refid="sel_ModuleColumns_List" />  from module <include refid="sel_ModulePramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="moduleMap">
+		select  <include refid="sel_ModuleColumns_List" />  from module <include refid="sel_ModulePramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="moduleMap">
+        select  <include refid="sel_ModuleColumns_List" />  from module <include refid="sel_ModulePramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from module <include refid="sel_ModulePramas_List" />
+	</select>
+	
+
+
+</mapper>

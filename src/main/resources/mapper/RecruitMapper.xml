@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.RecruitMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="RecruitEntity" id="recruitMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="city" column="city"/>
+        <result property="companyName" column="company_name"/>
+        <result property="companyType" column="company_type"/>
+        <result property="companyUrl" column="company_url"/>
+        <result property="welfare" column="welfare"/>
+        <result property="companyAddress" column="company_address"/>
+        <result property="monthlySalary" column="monthly_salary"/>
+        <result property="minSalary" column="min_salary"/>
+        <result property="maxSalary" column="max_salary"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="workNature" column="work_nature"/>
+        <result property="experience" column="experience"/>
+        <result property="eucation" column="eucation"/>
+        <result property="rNum" column="r_num"/>
+        <result property="positionCategory" column="position_category"/>
+        <result property="jobDescription" column="job_description"/>
+        <result property="listUrl" column="list_url"/>
+        <result property="detailUrl" column="detail_url"/>
+        <result property="uuid" column="uuid"/>
+        <result property="dataTypeId" column="data_type_id"/>
+        <result property="website" column="website"/>
+        <result property="status" column="status"/>
+        <result property="companySize" column="company_size"/>
+        <result property="taskId" column="task_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_RecruitColumns_List" > 
+  	  id ,        
+  title ,        
+  city ,        
+   company_name  ,        
+   company_type  ,        
+   company_url  ,        
+  welfare ,        
+   company_address  ,        
+   monthly_salary  ,        
+   min_salary  ,        
+   max_salary  ,        
+   release_date  ,        
+   work_nature  ,        
+  experience ,        
+  eucation ,        
+   r_num  ,        
+   position_category  ,        
+   job_description  ,        
+   list_url  ,        
+   detail_url  ,        
+  uuid ,        
+   data_type_id  ,        
+  website ,        
+  status ,        
+   company_size  ,        
+   task_id  ,        
+   created_time  ,        
+   updated_time          
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_RecruitColumns_List" >
+       #{id},   #{title},   #{city},   #{companyName},   #{companyType},   #{companyUrl},   #{welfare},   #{companyAddress},   #{monthlySalary},   #{minSalary},   #{maxSalary},   #{releaseDate},   #{workNature},   #{experience},   #{eucation},   #{rNum},   #{positionCategory},   #{jobDescription},   #{listUrl},   #{detailUrl},   #{uuid},   #{dataTypeId},   #{website},   #{status},   #{companySize},   #{taskId},   #{createdTime},   #{updatedTime}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_RecruitColumns_List" >
+    <set>
+    <if test="t.title != null">title = #{t.title}, </if>
+    <if test="t.city != null">city = #{t.city}, </if>
+    <if test="t.companyName != null">company_name = #{t.companyName}, </if>
+    <if test="t.companyType != null">company_type = #{t.companyType}, </if>
+    <if test="t.companyUrl != null">company_url = #{t.companyUrl}, </if>
+    <if test="t.welfare != null">welfare = #{t.welfare}, </if>
+    <if test="t.companyAddress != null">company_address = #{t.companyAddress}, </if>
+    <if test="t.monthlySalary != null">monthly_salary = #{t.monthlySalary}, </if>
+    <if test="t.minSalary != null">min_salary = #{t.minSalary}, </if>
+    <if test="t.maxSalary != null">max_salary = #{t.maxSalary}, </if>
+    <if test="t.releaseDate != null">release_date = #{t.releaseDate}, </if>
+    <if test="t.workNature != null">work_nature = #{t.workNature}, </if>
+    <if test="t.experience != null">experience = #{t.experience}, </if>
+    <if test="t.eucation != null">eucation = #{t.eucation}, </if>
+    <if test="t.rNum != null">r_num = #{t.rNum}, </if>
+    <if test="t.positionCategory != null">position_category = #{t.positionCategory}, </if>
+    <if test="t.jobDescription != null">job_description = #{t.jobDescription}, </if>
+    <if test="t.listUrl != null">list_url = #{t.listUrl}, </if>
+    <if test="t.detailUrl != null">detail_url = #{t.detailUrl}, </if>
+    <if test="t.uuid != null">uuid = #{t.uuid}, </if>
+    <if test="t.dataTypeId != null">data_type_id = #{t.dataTypeId}, </if>
+    <if test="t.website != null">website = #{t.website}, </if>
+    <if test="t.status != null">status = #{t.status}, </if>
+    <if test="t.companySize != null">company_size = #{t.companySize}, </if>
+    <if test="t.taskId != null">task_id = #{t.taskId}, </if>
+    <if test="t.createdTime != null">created_time = #{t.createdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_RecruitPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.title != null">and title = #{t.title}</if>
+    <if test="t.city != null">and city = #{t.city}</if>
+    <if test="t.companyName != null">and company_name = #{t.companyName}</if>
+    <if test="t.companyType != null">and company_type = #{t.companyType}</if>
+    <if test="t.companyUrl != null">and company_url = #{t.companyUrl}</if>
+    <if test="t.welfare != null">and welfare = #{t.welfare}</if>
+    <if test="t.companyAddress != null">and company_address = #{t.companyAddress}</if>
+    <if test="t.monthlySalary != null">and monthly_salary = #{t.monthlySalary}</if>
+    <if test="t.minSalary != null">and min_salary = #{t.minSalary}</if>
+    <if test="t.maxSalary != null">and max_salary = #{t.maxSalary}</if>
+    <if test="t.releaseDate != null">and release_date = #{t.releaseDate}</if>
+    <if test="t.workNature != null">and work_nature = #{t.workNature}</if>
+    <if test="t.experience != null">and experience = #{t.experience}</if>
+    <if test="t.eucation != null">and eucation = #{t.eucation}</if>
+    <if test="t.rNum != null">and r_num = #{t.rNum}</if>
+    <if test="t.positionCategory != null">and position_category = #{t.positionCategory}</if>
+    <if test="t.jobDescription != null">and job_description = #{t.jobDescription}</if>
+    <if test="t.listUrl != null">and list_url = #{t.listUrl}</if>
+    <if test="t.detailUrl != null">and detail_url = #{t.detailUrl}</if>
+    <if test="t.uuid != null">and uuid = #{t.uuid}</if>
+    <if test="t.dataTypeId != null">and data_type_id = #{t.dataTypeId}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.companySize != null">and company_size = #{t.companySize}</if>
+    <if test="t.taskId != null">and task_id = #{t.taskId}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_RecruitPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.title != null">and title = #{t.title}</if>
+    <if test="t.city != null">and city = #{t.city}</if>
+    <if test="t.companyName != null">and company_name = #{t.companyName}</if>
+    <if test="t.companyType != null">and company_type = #{t.companyType}</if>
+    <if test="t.companyUrl != null">and company_url = #{t.companyUrl}</if>
+    <if test="t.welfare != null">and welfare = #{t.welfare}</if>
+    <if test="t.companyAddress != null">and company_address = #{t.companyAddress}</if>
+    <if test="t.monthlySalary != null">and monthly_salary = #{t.monthlySalary}</if>
+    <if test="t.minSalary != null">and min_salary = #{t.minSalary}</if>
+    <if test="t.maxSalary != null">and max_salary = #{t.maxSalary}</if>
+    <if test="t.releaseDate != null">and release_date = #{t.releaseDate}</if>
+    <if test="t.workNature != null">and work_nature = #{t.workNature}</if>
+    <if test="t.experience != null">and experience = #{t.experience}</if>
+    <if test="t.eucation != null">and eucation = #{t.eucation}</if>
+    <if test="t.rNum != null">and r_num = #{t.rNum}</if>
+    <if test="t.positionCategory != null">and position_category = #{t.positionCategory}</if>
+    <if test="t.jobDescription != null">and job_description = #{t.jobDescription}</if>
+    <if test="t.listUrl != null">and list_url = #{t.listUrl}</if>
+    <if test="t.detailUrl != null">and detail_url = #{t.detailUrl}</if>
+    <if test="t.uuid != null">and uuid = #{t.uuid}</if>
+    <if test="t.dataTypeId != null">and data_type_id = #{t.dataTypeId}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.companySize != null">and company_size = #{t.companySize}</if>
+    <if test="t.taskId != null">and task_id = #{t.taskId}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into recruit values (<include refid="ins_RecruitColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update recruit <include refid="upd_RecruitColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from recruit <include refid="del_RecruitPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from recruit where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="recruitMap">
+		select  <include refid="sel_RecruitColumns_List" />  from recruit where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="recruitMap">
+		select  <include refid="sel_RecruitColumns_List" />  from recruit
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="recruitMap">
+		select  <include refid="sel_RecruitColumns_List" />  from recruit <include refid="sel_RecruitPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="recruitMap">
+		select  <include refid="sel_RecruitColumns_List" />  from recruit <include refid="sel_RecruitPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="recruitMap">
+        select  <include refid="sel_RecruitColumns_List" />  from recruit <include refid="sel_RecruitPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from recruit <include refid="sel_RecruitPramas_List" />
+	</select>
+
+
+
+    <!--根据条件查询招聘结果信息，任务和招聘信息是一对多的关系-->
+ 	<select id="getRecruitListByPramas" resultMap="recruitMap">
+		select
+		r.id ,
+      r.title ,
+      r.city ,
+      r.company_name  ,
+       r.company_type  ,
+       r.company_url  ,
+      r.welfare ,
+       r.company_address  ,
+       r.monthly_salary  ,
+       r.min_salary  ,
+       r.max_salary  ,
+       r.release_date  ,
+       r.work_nature  ,
+      r.experience ,
+      r.eucation ,
+      r.r_num  ,
+       r.position_category  ,
+       r.job_description  ,
+       r.list_url  ,
+       r.detail_url  ,
+      r.uuid ,
+       r.data_type_id  ,
+      r.website ,
+      r.status ,
+       r.company_size  ,
+       r.task_id  ,
+       r.created_time  ,
+       r.updated_time ,
+       cdt.type_name as typeName,
+       ct.task_name as taskName
+		from recruit r
+		left join crawler_data_type cdt on cdt.id=r.data_type_id
+		left join crawler_task ct on ct.id=r.task_id
+        <include refid="sel_RecruitPramas_List" />
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.SystemDicMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="SystemDicEntity" id="systemDicMap">
+        <result property="id" column="id"/>
+        <result property="parent" column="parent"/>
+        <result property="name" column="name"/>
+        <result property="dicKey" column="dic_key"/>
+        <result property="dicValue" column="dic_value"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_SystemDicColumns_List" > 
+  	  id ,        
+  parent ,        
+  name ,        
+   dic_key  ,        
+   dic_value  ,        
+   created_time  ,        
+   updated_time  ,        
+  status         
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_SystemDicColumns_List" >
+       #{id},   #{parent},   #{name},   #{dicKey},   #{dicValue},   #{createdTime},   #{updatedTime},   #{status}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_SystemDicColumns_List" >
+    <set>
+    <if test="t.parent != null">parent = #{t.parent}, </if>
+    <if test="t.name != null">name = #{t.name}, </if>
+    <if test="t.dicKey != null">dic_key = #{t.dicKey}, </if>
+    <if test="t.dicValue != null">dic_value = #{t.dicValue}, </if>
+    <if test="t.createdTime != null">created_time = #{t.createdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}, </if>
+    <if test="t.status != null">status = #{t.status}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_SystemDicPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.dicKey != null">and dic_key = #{t.dicKey}</if>
+    <if test="t.dicValue != null">and dic_value = #{t.dicValue}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_SystemDicPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.dicKey != null">and dic_key = #{t.dicKey}</if>
+    <if test="t.dicValue != null">and dic_value = #{t.dicValue}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into system_dic values (<include refid="ins_SystemDicColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update system_dic <include refid="upd_SystemDicColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from system_dic <include refid="del_SystemDicPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from system_dic where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="systemDicMap">
+		select  <include refid="sel_SystemDicColumns_List" />  from system_dic where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="systemDicMap">
+		select  <include refid="sel_SystemDicColumns_List" />  from system_dic
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="systemDicMap">
+		select  <include refid="sel_SystemDicColumns_List" />  from system_dic <include refid="sel_SystemDicPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="systemDicMap">
+		select  <include refid="sel_SystemDicColumns_List" />  from system_dic <include refid="sel_SystemDicPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="systemDicMap">
+        select  <include refid="sel_SystemDicColumns_List" />  from system_dic <include refid="sel_SystemDicPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from system_dic <include refid="sel_SystemDicPramas_List" />
+	</select>
+	
+
+
+</mapper>

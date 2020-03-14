@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.KeywordMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="KeywordEntity" id="keywordMap">
+        <result property="id" column="id"/>
+        <result property="rId" column="r_id"/>
+        <result property="name" column="name"/>
+        <result property="dataType" column="data_type"/>
+        <result property="uuid" column="uuid"/>
+        <result property="taskId" column="task_id"/>
+        <result property="website" column="website"/>
+        <result property="status" column="status"/>
+        <result property="jobDescription" column="job_description"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_KeywordColumns_List" > 
+  	  id ,        
+   r_id  ,        
+  name ,        
+   data_type  ,        
+  uuid ,        
+   task_id  ,        
+  website ,        
+  status ,        
+   job_description  ,        
+   created_time  ,        
+   updated_time          
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_KeywordColumns_List" >
+       #{id},   #{rId},   #{name},   #{dataType},   #{uuid},   #{taskId},   #{website},   #{status},   #{jobDescription},   #{createdTime},   #{updatedTime}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_KeywordColumns_List" >
+    <set>
+    <if test="t.rId != null">r_id = #{t.rId}, </if>
+    <if test="t.name != null">name = #{t.name}, </if>
+    <if test="t.dataType != null">data_type = #{t.dataType}, </if>
+    <if test="t.uuid != null">uuid = #{t.uuid}, </if>
+    <if test="t.taskId != null">task_id = #{t.taskId}, </if>
+    <if test="t.website != null">website = #{t.website}, </if>
+    <if test="t.status != null">status = #{t.status}, </if>
+    <if test="t.jobDescription != null">job_description = #{t.jobDescription}, </if>
+    <if test="t.createdTime != null">created_time = #{t.createdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_KeywordPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.rId != null">and r_id = #{t.rId}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.dataType != null">and data_type = #{t.dataType}</if>
+    <if test="t.uuid != null">and uuid = #{t.uuid}</if>
+    <if test="t.taskId != null">and task_id = #{t.taskId}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.jobDescription != null">and job_description = #{t.jobDescription}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_KeywordPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.rId != null">and r_id = #{t.rId}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.dataType != null">and data_type = #{t.dataType}</if>
+    <if test="t.uuid != null">and uuid = #{t.uuid}</if>
+    <if test="t.taskId != null">and task_id = #{t.taskId}</if>
+    <if test="t.website != null">and website = #{t.website}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.jobDescription != null">and job_description = #{t.jobDescription}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into keyword values (<include refid="ins_KeywordColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update keyword <include refid="upd_KeywordColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from keyword <include refid="del_KeywordPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from keyword where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="keywordMap">
+		select  <include refid="sel_KeywordColumns_List" />  from keyword where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="keywordMap">
+		select  <include refid="sel_KeywordColumns_List" />  from keyword
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="keywordMap">
+		select  <include refid="sel_KeywordColumns_List" />  from keyword <include refid="sel_KeywordPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="keywordMap">
+		select  <include refid="sel_KeywordColumns_List" />  from keyword <include refid="sel_KeywordPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="keywordMap">
+        select  <include refid="sel_KeywordColumns_List" />  from keyword <include refid="sel_KeywordPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from keyword <include refid="sel_KeywordPramas_List" />
+	</select>
+	
+
+
+</mapper>

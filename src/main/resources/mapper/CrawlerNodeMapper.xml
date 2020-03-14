@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.CrawlerNodeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="CrawlerNodeEntity" id="crawlerNodeMap">
+        <result property="id" column="id"/>
+        <result property="parent" column="parent"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="level" column="level"/>
+        <result property="hasNext" column="has_next"/>
+        <result property="saveCloumn" column="save_cloumn"/>
+        <result property="classReg" column="class_reg"/>
+        <result property="startStr" column="start_str"/>
+        <result property="endStr" column="end_str"/>
+        <result property="resultType" column="result_type"/>
+        <result property="position" column="position"/>
+        <result property="selfPosition" column="self_position"/>
+        <result property="isHref" column="is_href"/>
+        <result property="reg" column="reg"/>
+        <result property="ruleId" column="rule_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_CrawlerNodeColumns_List" > 
+  	  id ,        
+  parent ,        
+  name ,        
+  type ,        
+  level ,        
+   has_next  ,        
+   save_cloumn  ,        
+   class_reg  ,        
+   start_str  ,        
+   end_str  ,        
+   result_type  ,        
+  position ,        
+   self_position  ,        
+   is_href  ,        
+  reg ,        
+   rule_id  ,        
+   created_time  ,        
+   updated_time          
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_CrawlerNodeColumns_List" >
+       #{id},   #{parent},   #{name},   #{type},   #{level},   #{hasNext},   #{saveCloumn},   #{classReg},   #{startStr},   #{endStr},   #{resultType},   #{position},   #{selfPosition},   #{isHref},   #{reg},   #{ruleId},   #{createdTime},   #{updatedTime}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_CrawlerNodeColumns_List" >
+    <set>
+    <if test="t.parent != null">parent = #{t.parent}, </if>
+    <if test="t.name != null">name = #{t.name}, </if>
+    <if test="t.type != null">type = #{t.type}, </if>
+    <if test="t.level != null">level = #{t.level}, </if>
+    <if test="t.hasNext != null">has_next = #{t.hasNext}, </if>
+    <if test="t.saveCloumn != null">save_cloumn = #{t.saveCloumn}, </if>
+    <if test="t.classReg != null">class_reg = #{t.classReg}, </if>
+    <if test="t.startStr != null">start_str = #{t.startStr}, </if>
+    <if test="t.endStr != null">end_str = #{t.endStr}, </if>
+    <if test="t.resultType != null">result_type = #{t.resultType}, </if>
+    <if test="t.position != null">position = #{t.position}, </if>
+    <if test="t.selfPosition != null">self_position = #{t.selfPosition}, </if>
+    <if test="t.isHref != null">is_href = #{t.isHref}, </if>
+    <if test="t.reg != null">reg = #{t.reg}, </if>
+    <if test="t.ruleId != null">rule_id = #{t.ruleId}, </if>
+    <if test="t.createdTime != null">created_time = #{t.createdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_CrawlerNodePramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.name != null">and name = #{t.name}</if>
+    <if test="t.type != null">and type = #{t.type}</if>
+    <if test="t.level != null">and level = #{t.level}</if>
+    <if test="t.hasNext != null">and has_next = #{t.hasNext}</if>
+    <if test="t.saveCloumn != null">and save_cloumn = #{t.saveCloumn}</if>
+    <if test="t.classReg != null">and class_reg = #{t.classReg}</if>
+    <if test="t.startStr != null">and start_str = #{t.startStr}</if>
+    <if test="t.endStr != null">and end_str = #{t.endStr}</if>
+    <if test="t.resultType != null">and result_type = #{t.resultType}</if>
+    <if test="t.position != null">and position = #{t.position}</if>
+    <if test="t.selfPosition != null">and self_position = #{t.selfPosition}</if>
+    <if test="t.isHref != null">and is_href = #{t.isHref}</if>
+    <if test="t.reg != null">and reg = #{t.reg}</if>
+    <if test="t.ruleId != null">and rule_id = #{t.ruleId}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_CrawlerNodePramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.parent != null">and parent = #{t.parent}</if>
+    <if test="t.name != null and t.name != ''">and name = #{t.name}</if>
+    <if test="t.type != null and t.type != -1">and type = #{t.type}</if>
+    <if test="t.level != null">and level = #{t.level}</if>
+    <if test="t.hasNext != null">and has_next = #{t.hasNext}</if>
+    <if test="t.saveCloumn != null">and save_cloumn = #{t.saveCloumn}</if>
+    <if test="t.classReg != null">and class_reg = #{t.classReg}</if>
+    <if test="t.startStr != null">and start_str = #{t.startStr}</if>
+    <if test="t.endStr != null">and end_str = #{t.endStr}</if>
+    <if test="t.resultType != null">and result_type = #{t.resultType}</if>
+    <if test="t.position != null">and position = #{t.position}</if>
+    <if test="t.selfPosition != null">and self_position = #{t.selfPosition}</if>
+    <if test="t.isHref != null and t.isHref != -1">and is_href = #{t.isHref}</if>
+    <if test="t.reg != null">and reg = #{t.reg}</if>
+    <if test="t.ruleId != null">and rule_id = #{t.ruleId}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into crawler_node values (<include refid="ins_CrawlerNodeColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update crawler_node <include refid="upd_CrawlerNodeColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from crawler_node <include refid="del_CrawlerNodePramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from crawler_node where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="crawlerNodeMap">
+		select  <include refid="sel_CrawlerNodeColumns_List" />  from crawler_node where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="crawlerNodeMap">
+		select  <include refid="sel_CrawlerNodeColumns_List" />  from crawler_node
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="crawlerNodeMap">
+		select  <include refid="sel_CrawlerNodeColumns_List" />  from crawler_node <include refid="sel_CrawlerNodePramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="crawlerNodeMap">
+		select  <include refid="sel_CrawlerNodeColumns_List" />  from crawler_node <include refid="sel_CrawlerNodePramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="crawlerNodeMap">
+        select  <include refid="sel_CrawlerNodeColumns_List" />  from crawler_node <include refid="sel_CrawlerNodePramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from crawler_node <include refid="sel_CrawlerNodePramas_List" />
+	</select>
+	
+
+
+</mapper>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kgc.spider.mapper.CrawlerTaskMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="CrawlerTaskEntity" id="crawlerTaskMap">
+        <result property="id" column="id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="ruleId" column="rule_id"/>
+        <result property="dataTypeId" column="data_type_id"/>
+        <result property="url" column="url"/>
+        <result property="keyword" column="keyword"/>
+        <result property="isNeedPage" column="is_need_page"/>
+        <result property="startPage" column="start_page"/>
+        <result property="endPage" column="end_page"/>
+        <result property="threadCount" column="thread_count"/>
+        <result property="dataProgress" column="data_progress"/>
+        <result property="keywordProgress" column="keyword_progress"/>
+        <result property="dataCounts" column="data_counts"/>
+        <result property="keywordCounts" column="keyword_counts"/>
+        <result property="totalCount" column="total_count"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+    </resultMap>
+  
+  <!--要查询的字段-->  
+  <sql id="sel_CrawlerTaskColumns_List" > 
+  	  id ,        
+   task_name  ,        
+   rule_id  ,        
+   data_type_id  ,        
+  url ,        
+  keyword ,        
+   is_need_page  ,        
+   start_page  ,        
+   end_page  ,        
+   thread_count  ,        
+   data_progress  ,        
+   keyword_progress  ,        
+   data_counts  ,        
+   keyword_counts  ,        
+   total_count  ,        
+  description ,        
+  status ,        
+   created_time  ,        
+   updated_time          
+  
+  </sql>
+  
+  <!--要添加的字段-->
+  <sql id="ins_CrawlerTaskColumns_List" >
+       #{id},   #{taskName},   #{ruleId},   #{dataTypeId},   #{url},   #{keyword},   #{isNeedPage},   #{startPage},   #{endPage},   #{threadCount},   #{dataProgress},   #{keywordProgress},   #{dataCounts},   #{keywordCounts},   #{totalCount},   #{description},   #{status},   #{createdTime},   #{updatedTime}   </sql> 
+  
+  <!--要修改的字段-->
+  <sql id="upd_CrawlerTaskColumns_List" >
+    <set>
+    <if test="t.taskName != null">task_name = #{t.taskName}, </if>
+    <if test="t.ruleId != null">rule_id = #{t.ruleId}, </if>
+    <if test="t.dataTypeId != null">data_type_id = #{t.dataTypeId}, </if>
+    <if test="t.url != null">url = #{t.url}, </if>
+    <if test="t.keyword != null">keyword = #{t.keyword}, </if>
+    <if test="t.isNeedPage != null">is_need_page = #{t.isNeedPage}, </if>
+    <if test="t.startPage != null">start_page = #{t.startPage}, </if>
+    <if test="t.endPage != null">end_page = #{t.endPage}, </if>
+    <if test="t.threadCount != null">thread_count = #{t.threadCount}, </if>
+    <if test="t.dataProgress != null">data_progress = #{t.dataProgress}, </if>
+    <if test="t.keywordProgress != null">keyword_progress = #{t.keywordProgress}, </if>
+    <if test="t.dataCounts != null">data_counts = #{t.dataCounts}, </if>
+    <if test="t.keywordCounts != null">keyword_counts = #{t.keywordCounts}, </if>
+    <if test="t.totalCount != null">total_count = #{t.totalCount}, </if>
+    <if test="t.description != null">description = #{t.description}, </if>
+    <if test="t.status != null">status = #{t.status}, </if>
+    <if test="t.createdTime != null">created_time = #{t.createdTime}, </if>
+    <if test="t.updatedTime != null">updated_time = #{t.updatedTime}</if>
+	</set>
+	where id = #{t.id}
+  </sql> 
+  
+  <!--定义删除的条件-->
+  <sql id="del_CrawlerTaskPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.taskName != null">and task_name = #{t.taskName}</if>
+    <if test="t.ruleId != null">and rule_id = #{t.ruleId}</if>
+    <if test="t.dataTypeId != null">and data_type_id = #{t.dataTypeId}</if>
+    <if test="t.url != null">and url = #{t.url}</if>
+    <if test="t.keyword != null">and keyword = #{t.keyword}</if>
+    <if test="t.isNeedPage != null">and is_need_page = #{t.isNeedPage}</if>
+    <if test="t.startPage != null">and start_page = #{t.startPage}</if>
+    <if test="t.endPage != null">and end_page = #{t.endPage}</if>
+    <if test="t.threadCount != null">and thread_count = #{t.threadCount}</if>
+    <if test="t.dataProgress != null">and data_progress = #{t.dataProgress}</if>
+    <if test="t.keywordProgress != null">and keyword_progress = #{t.keywordProgress}</if>
+    <if test="t.dataCounts != null">and data_counts = #{t.dataCounts}</if>
+    <if test="t.keywordCounts != null">and keyword_counts = #{t.keywordCounts}</if>
+    <if test="t.totalCount != null">and total_count = #{t.totalCount}</if>
+    <if test="t.description != null">and description = #{t.description}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql> 
+  
+  <!--定义查询的条件-->
+  <sql id="sel_CrawlerTaskPramas_List">
+    <where>
+    <if test="t.id != null">and id = #{t.id}</if>
+    <if test="t.taskName != null and t.taskName != ''">and task_name = #{t.taskName}</if>
+    <if test="t.ruleId != null and t.ruleId != -1">and rule_id = #{t.ruleId}</if>
+    <if test="t.dataTypeId != null">and data_type_id = #{t.dataTypeId}</if>
+    <if test="t.url != null">and url = #{t.url}</if>
+    <if test="t.keyword != null">and keyword = #{t.keyword}</if>
+    <if test="t.isNeedPage != null">and is_need_page = #{t.isNeedPage}</if>
+    <if test="t.startPage != null">and start_page = #{t.startPage}</if>
+    <if test="t.endPage != null">and end_page = #{t.endPage}</if>
+    <if test="t.threadCount != null">and thread_count = #{t.threadCount}</if>
+    <if test="t.dataProgress != null">and data_progress = #{t.dataProgress}</if>
+    <if test="t.keywordProgress != null">and keyword_progress = #{t.keywordProgress}</if>
+    <if test="t.dataCounts != null">and data_counts = #{t.dataCounts}</if>
+    <if test="t.keywordCounts != null">and keyword_counts = #{t.keywordCounts}</if>
+    <if test="t.totalCount != null">and total_count = #{t.totalCount}</if>
+    <if test="t.description != null">and description = #{t.description}</if>
+    <if test="t.status != null">and status = #{t.status}</if>
+    <if test="t.createdTime != null">and created_time = #{t.createdTime}</if>
+    <if test="t.updatedTime != null">and updated_time = #{t.updatedTime}</if>
+	</where>
+  </sql>
+
+    <!--添加-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into crawler_task values (<include refid="ins_CrawlerTaskColumns_List" />)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        update crawler_task <include refid="upd_CrawlerTaskColumns_List" />
+    </update>
+
+    <!--根据条件删除-->
+    <delete id="delete">
+        delete from crawler_task <include refid="del_CrawlerTaskPramas_List" />
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatch">
+        delete from crawler_task where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据主键id查询单个对象-->
+	<select id="queryObjectById" resultMap="crawlerTaskMap">
+		select  <include refid="sel_CrawlerTaskColumns_List" />  from crawler_task where id = #{id}
+	</select>
+	
+	<!--查询所有对象-->
+	<select id="queryAll" resultMap="crawlerTaskMap">
+		select  <include refid="sel_CrawlerTaskColumns_List" />  from crawler_task
+    </select>
+
+    <!--根据条件（无条件）查询多个对象-->
+	<select id="queryManyByPramas" resultMap="crawlerTaskMap">
+		select  <include refid="sel_CrawlerTaskColumns_List" />  from crawler_task <include refid="sel_CrawlerTaskPramas_List" />
+	</select>
+	
+	<!--根据条件（无条件）分页查询-->
+	<select id="queryListByPramas" resultMap="crawlerTaskMap">
+		select  <include refid="sel_CrawlerTaskColumns_List" />  from crawler_task <include refid="sel_CrawlerTaskPramas_List" /> order by id desc
+	</select>
+
+    <!--根据条件查询单条数据-->
+    <select id="queryObjectByPramas" resultMap="crawlerTaskMap">
+        select  <include refid="sel_CrawlerTaskColumns_List" />  from crawler_task <include refid="sel_CrawlerTaskPramas_List" />
+    </select>
+	
+	<!--根据条件（无条件）查询数据条数-->
+ 	<select id="queryTotalByPramas" resultType="java.lang.Long">
+		select count(*) from crawler_task <include refid="sel_CrawlerTaskPramas_List" />
+	</select>
+	
+
+
+</mapper>
